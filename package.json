@@ -33,7 +33,9 @@
         "datatables.net-bs4": "1.10.16",
         "font-awesome": "4.7.0",
         "jquery": "^3.2.1",
-        "jquery.easing": "^1.4.1"
+        "jquery.easing": "^1.4.1",
+        "lodash": "^4.17.4",
+        "timer.js": "^1.0.4"
     },
     "devDependencies": {
         "browser-sync": "2.18.13",

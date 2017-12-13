@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>SB Admin - Start Bootstrap Template</title>
+    <title>whats up</title>
     <!-- Bootstrap core CSS-->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom fonts for this template-->
@@ -17,37 +17,125 @@
 </head>
 
 <body class="bg-dark">
-<div class="content-wrapper">
+<div class="content-wrapper" style="margin-left: 0;">
     <div class="container-fluid">
         <div class="row">
-            <form class="col-lg-12">
-                <div class="col-lg-2">
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">Email address</label>
-                        <input class="form-control" id="exampleInputEmail1" type="email" aria-describedby="emailHelp" placeholder="Enter email">
-                    </div>
+            <div class="col-lg">
+                <div class="form-group">
+                    <h3 class="text-center">I.</h3>
+                    <label for="file">Znajdź właściwą teczkę</label>
+                    <input class="form-control" id="file" placeholder="">
                 </div>
-                <div class="col-lg-2">
-                    <div class="form-group">
-                        <label for="exampleInputPassword1">Password</label>
-                        <input class="form-control" id="exampleInputPassword1" type="password" placeholder="Password">
-                    </div>
+            </div>
+            <div class="col-lg">
+                <div class="form-group">
+                    <h3 class="text-center">II.</h3>
+                    <label for="cipher">Szyfr cezara</label>
+                    <input class="form-control" id="cipher" placeholder="">
                 </div>
-                <div class="col-lg-2">
+            </div>
+            <div class="col-lg">
+                <div class="form-group">
+                    <h3 class="text-center">III.</h3>
+                    <label for="uvcode">Tablica korkowa</label>
+                    <input class="form-control" id="uvcode" placeholder="">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg">
+                <div class="form-group">
+                    <h3 class="text-center">IV.</h3>
+                    <label for="morse">Kod Morse'a</label>
+                    <input class="form-control" id="morse" placeholder="">
+                </div>
+            </div>
+            <div class="col-lg">
+                <div class="form-group">
+                    <h3 class="text-center">V.</h3>
+                    <label for="mirror">Lustro</label>
+                    <input class="form-control" id="mirror" placeholder="">
+                </div>
+            </div>
+            <div class="col-lg">
+                <div class="form-group">
+                    <h3 class="text-center">VI.</h3>
+                    <label>Bomba</label>
+                    <button id="bomb" class="col btn btn-danger">Rozbrój</button>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="margin: 5% 10%; display: none;" id="bomb-mod">
+            <div class="row">
+                Zadanie polega na rozbrojeniu bomby. Poniżej znajduje się sześć modułów, które trzeba rozwiązać,
+                aby rozbroić bombę. Wskazówki do rozwiązania poszczególnych modułów znajdują się w czterech rogach pokoju.
+                Niech każda z osób zajmie stanowisko ze wskazówkami, plus jedna osoba, która będzie odpowiedzialna
+                za wprowadzenie rozwiązań do laptopa. Zadanie osób przy wskazówkach jest przekazanie informacji
+                jak rozwiązać moduł do osoby przy laptopie. Wskazówek, ani laptopa nie można ruszać z miejsca!
+                Problem trzeba rozwiązać poprzez komunikację w drużynie. Czas na rozwiązanie wszystkich modułów - 5 min.
+                <div>
+                    <button id="bomb-start" class="btn btn-danger">Start</button>
+                </div>
+            </div>
+            <div class="row" id="modules" style="display: none;">
+                <div class="col-lg-12">&nbsp;</div>
+                <div class="col-lg-12 text-center h1">
+                    Pozostały czas: <span id="timer">5:00</span>
+                    <hr>
+                </div>
+                <div class="col-lg-12">&nbsp;</div>
+                <div class="col-lg-3 module" id="mod1">
+                    <h3>Moduł 1 | Symbole</h3>
+                    <div>Kliknij w przyciski z symbolami w odpowiedniej kolejności.</div>
                     <div class="form-group">
-                        <div class="form-check">
-                            <label class="form-check-label">
-                            <input class="form-check-input" type="checkbox"> Remember Password</label>
+                        <div class="row">
+                            <div class="col-lg-2"><button class="btn symbol" id="sym1"></button></div>
+                            <div class="col-lg-2"><button class="btn symbol" id="sym2"></button></div>
+                            <div class="col-lg-2"><button class="btn symbol" id="sym3"></button></div>
+                            <div class="col-lg-2"><button class="btn symbol" id="sym4"></button></div>
                         </div>
                     </div>
                 </div>
-            </form>
+                <div class="col-lg-3 module" id="mod2">
+                    <h3>Moduł 2 | Kable</h3>
+                    <div>Przetnij odpowiedni kabel.</div>
+                    <div class="form-group">
+                        <div class="row" id="cableContainer">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 module" id="mod3">
+                    <h3>Moduł 3 | Przycisk</h3>
+                    <div class="form-group">
+                        <a href="#" id="pressThis" class="press-this">
+                            <div class="press-img">Press</div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-3 module" id="mod4">
+                    <h3>Moduł 4 | Pamięć</h3>
+                    <div class="form-group col-lg-7">
+                        <div class="memory-display text-center">1</div>
+                        <div class="memory-buttons text-center">
+                            <button class="btn btn-danger">2</button>
+                            <button class="btn btn-danger">4</button>
+                            <button class="btn btn-danger">3</button>
+                            <button class="btn btn-danger">5</button>
+                        </div>
+                        <div class="memory-status">*</div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
 <!-- Bootstrap core JavaScript-->
 <script src="vendor/jquery/jquery.min.js"></script>
 <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="vendor/countdown/countdown.min.js"></script>
+<script src="node_modules/lodash/lodash.min.js"></script>
+<script src="js/sb-admin.min.js"></script>
 <!-- Core plugin JavaScript-->
 <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 </body>

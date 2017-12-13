@@ -40,6 +40,30 @@ body.fixed-nav {
   .scroll-to-top i {
     font-weight: 800; }
 
+.press-this:hover {
+  text-decoration: none; }
+
+.press-this .press-img {
+  font-size: 20px;
+  color: #000;
+  width: 180px;
+  height: 140px;
+  font-weight: bold;
+  background-repeat: no-repeat;
+  background-size: 180px;
+  background-image: url("../b1.png"); }
+
+.press-this:active .press-img {
+  background-image: url("../b2.png"); }
+
+.memory-display {
+  color: #fff;
+  background-color: #000;
+  height: 50px;
+  font-size: 28px;
+  padding: 5px;
+  margin-bottom: 10px; }
+
 .smaller {
   font-size: 0.7rem; }
 
