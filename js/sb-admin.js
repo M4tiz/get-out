@@ -300,8 +300,8 @@
   function allModulesDone() {
     var done = true;
     $('.module')
-        .each(function (mod) {
-          done &= mod.attr('data-done');
+        .each(function () {
+          done &= $(this).attr('data-done');
         });
     return done;
   }
