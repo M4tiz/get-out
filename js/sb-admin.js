@@ -63,6 +63,9 @@
     mirror: {
       valid: 'gift',
       number: 0
+    },
+    bomb: {
+      number: 0
     }
   };
 
@@ -71,15 +74,19 @@
     var id = $(this).attr('id');
     var solution = sols[id];
     if (solution.valid == $(this).val().toLowerCase()) {
-      var $label = $('<h2>')
-          .addClass('col')
-          .css('color', 'red')
-          .text(solution.number);
-      $(this).parent().append($label);
-      $(this).remove();
-      solution.resolved = true;
+      showSolution($(this), solution);
     }
   });
+
+  function showSolution(input, solution) {
+    var $label = $('<h2>')
+        .addClass('col')
+        .css('color', 'red')
+        .text(solution.number);
+    input.parent().append($label);
+    input.remove();
+    solution.resolved = true;
+  }
 
   function allResolved() {
     var keys = Object.keys(sols);
@@ -101,10 +108,14 @@
     timer(Date.now() + timelimit, $('#timer'));
     randomSolutionSet();
   });
+  var failed = false;
   var symbols = [];
+  var button = '';
   var cable = {};
 
   function randomSolutionSet() {
+    failed = false;
+
     //1
     symbols = _.sampleSize(order, 4);
     $('button.symbol').each(function (index) {
@@ -121,6 +132,35 @@
       container.append(template);
     }
     $('.wire').on('click', cutWire);
+
+    //3
+    button = _.sample(buttons);
+    $('.press-img').text(button.text);
+
+    $('#pressThis')
+        .off()
+        .on('click', button.click || $.noop)
+        .on('mousedown', button.mousedown || $.noop)
+        .on('dblclick', button.dblclick || $.noop)
+        .on('mouseup', button.mouseup || $.noop);
+
+    //4
+    var memory = _.sample(memories);
+    var setIndex = 0;
+    forwardMemory(setIndex, memory);
+
+    $('.memory-buttons .mem')
+        .off('click')
+        .click(function () {
+          var num = $(this).text();
+          console.log('#' + setIndex + ' Memory ' + num + ' | Expected: ' + memory.order[setIndex]);
+          if (num == memory.order[setIndex]) {
+            forwardMemory(++setIndex, memory);
+          } else {
+            fail();
+          }
+        });
+
   }
 
   //Modules
@@ -131,7 +171,7 @@
     var sym = $(this).text();
     if (symbols[0] != sym) {
       console.log('Expected: ' + symbols[0], 'Got: ' + sym);
-      onInvalidAnswer();
+      fail();
     } else {
       symbols = symbols.slice(1);
       console.log('Remaining: ', symbols);
@@ -160,22 +200,121 @@
       $('.wire').off('click');
       markAsDone('mod2');
     } else {
-      onInvalidAnswer();
+      fail();
+    }
+  }
+
+  var buttons = [
+    {
+      text: 'Press',
+      mouseup: function (e) {
+        validateTimerDigit(5)
+      },
+      dblclick: failIfNotPassed
+    },
+    {
+      text: 'Click',
+      dblclick: function (e) {
+        markAsDone('mod3')
+      },
+      click: function () {
+        setTimeout(failIfNotPassed, 500);
+      }
+    },
+    {
+      text: 'Hold',
+      click: function () {
+        setTimeout(validateTimerDigit.bind(this, 0), 600);
+      },
+      dblclick: fail,
+      mousedown: function () {
+        setTimeout(failIfNotPassed, 1000)
+      }
+    }
+  ];
+
+  function forwardMemory(setIndex, memory) {
+    var memoryButtons = $('.memory-buttons .mem');
+    if (setIndex == sets.length) {
+      memoryButtons.off('click');
+      return markAsDone('mod4');
+    }
+    var memoryStatus = $('.memory-status');
+    memoryStatus.text(memoryStatus.text() + '*');
+    $('.memory-display').text(memory.display[setIndex]);
+    memoryButtons
+        .each(function (index) {
+          $(this).text(sets[setIndex][index]);
+        })
+  }
+
+  var memories = [
+    {
+      display: [3, 1, 3, 3],
+      order: [1, 4, 1, 1]
+    },
+    {
+      display: [1, 4, 3, 3],
+      order: [4, 3, 1, 4]
+    }
+  ];
+  var sets = [
+    [2, 4, 1, 3],
+    [1, 3, 2, 4],
+    [2, 3, 1, 4],
+    [2, 1, 3, 4]
+  ];
+
+  //################
+  function failIfNotPassed() {
+    console.log('Fail if not ' + $('#mod3').attr('data-done'));
+    if (!$('#mod3').attr('data-done')) {
+      console.log('Fail');
+      fail();
+    }
+  }
+
+  function validateTimerDigit(digit) {
+    var time = $('#timer').text();
+    if (time.indexOf(digit) < 0) {
+      fail();
+    } else {
+      markAsDone('mod3');
+      $('#pressThis').off();
     }
   }
 
   function markAsDone(module) {
-    $('#' + module).css('background-color', 'rgba(40, 167, 69, 0.4)')
+    if (!failed) {
+      var modul = $('#' + module);
+      modul.css('background-color', 'rgba(40, 167, 69, 0.4)');
+      modul.attr('data-done', 'true');
+
+      if (allModulesDone()) {
+        hideModules();
+        showSolution($('#bomb'), sols.bomb);
+      }
+    }
   }
 
-  function onInvalidAnswer() {
+  function allModulesDone() {
+    var done = true;
+    $('.module')
+        .each(function (mod) {
+          done &= mod.attr('data-done');
+        });
+    return done;
+  }
+
+  function fail() {
     reset();
     boom();
+    failed = true;
   }
 
   function reset() {
-    $('.module').each().css('background-color', 'transparent');
-    $('#cableContainer').empty();
+    $('.module').css('background-color', 'transparent');
+    $('#cableContainer').html('&nbsp;');
     symbols.length = 0;
     cable = {};
   }
@@ -207,9 +346,13 @@
   }
 
   function boom() {
-    $('#modules').hide();
+    hideModules();
     setTimeout(function () {
       alert('Boom. Mikołaja wyjebało. Spróbuj jeszcze raz.');
     }, 1);
+  }
+
+  function hideModules() {
+    $('#modules').hide();
   }
 })(jQuery); // End of use strict
