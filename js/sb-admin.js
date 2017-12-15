@@ -45,7 +45,7 @@
 
   var sols = {
     file: {
-      valid: '123',
+      valid: '283',
       number: 0
     },
     cipher: {
@@ -107,6 +107,7 @@
     var timelimit = 1000 * 60 * 5;
     timer(Date.now() + timelimit, $('#timer'));
     randomSolutionSet();
+    $(this).hide();
   });
   var failed = false;
   var symbols = [];
@@ -313,6 +314,7 @@
   }
 
   function reset() {
+    $('#bomb-start').show();
     $('.module').css('background-color', 'transparent');
     $('#cableContainer').html('&nbsp;');
     symbols.length = 0;
