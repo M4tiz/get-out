@@ -19,26 +19,29 @@
 <body class="bg-dark">
 <div class="content-wrapper" style="margin-left: 0;">
     <div class="container-fluid">
+        <div class="row" style="padding-left: 30px;">
+            <h1></h1>
+        </div>
         <div class="row">
             <div class="col-lg">
                 <div class="form-group">
                     <h3 class="text-center">I.</h3>
-                    <label for="file">Znajdź właściwą teczkę</label>
-                    <input class="form-control" id="file" placeholder="">
+                    <label for="file">Znajdź właściwe teczki</label>
+                    <input class="form-control" id="file" placeholder="Wpisz kod 3-cyfrowy">
                 </div>
             </div>
             <div class="col-lg">
                 <div class="form-group">
                     <h3 class="text-center">II.</h3>
                     <label for="cipher">Szyfr cezara</label>
-                    <input class="form-control" id="cipher" placeholder="">
+                    <input class="form-control" id="cipher" placeholder="Wpisz odszyfrowane hasło">
                 </div>
             </div>
             <div class="col-lg">
                 <div class="form-group">
                     <h3 class="text-center">III.</h3>
-                    <label for="uvcode">Tablica korkowa</label>
-                    <input class="form-control" id="uvcode" placeholder="">
+                    <label for="uvcode">Tablica</label>
+                    <input class="form-control" id="uvcode" placeholder="Wpisz hasło">
                 </div>
             </div>
         </div>
@@ -47,14 +50,14 @@
                 <div class="form-group">
                     <h3 class="text-center">IV.</h3>
                     <label for="morse">Kod Morse'a</label>
-                    <input class="form-control" id="morse" placeholder="">
+                    <input class="form-control" id="morse" placeholder="Wpisz 3 literowe hasło">
                 </div>
             </div>
             <div class="col-lg">
                 <div class="form-group">
                     <h3 class="text-center">V.</h3>
-                    <label for="mirror">Lustro</label>
-                    <input class="form-control" id="mirror" placeholder="">
+                    <label for="mirror">Lustro&nbsp;<span style="font-size: 80%; font-style: italic;">Pod światłem zawsze wygląsz lepiej</span></label>
+                    <input class="form-control" id="mirror" placeholder="Wpisz hasło">
                 </div>
             </div>
             <div class="col-lg">
@@ -67,11 +70,11 @@
         </div>
         <div class="row" style="margin: 5% 10%; display: none;" id="bomb-mod">
             <div class="row">
-                Zadanie polega na rozbrojeniu bomby. Poniżej znajduje się sześć modułów, które trzeba rozwiązać,
-                aby rozbroić bombę. Wskazówki do rozwiązania poszczególnych modułów znajdują się w czterech rogach pokoju.
+                Zadanie polega na rozbrojeniu bomby. Poniżej znajdują się cztery moduły, które trzeba rozwiązać,
+                aby rozbroić bombę. Wskazówki do rozwiązania poszczególnych modułów są przyklejone na ścianach pokoju, w którym jesteście.
                 Niech każda z osób zajmie stanowisko ze wskazówkami, plus jedna osoba, która będzie odpowiedzialna
                 za wprowadzenie rozwiązań do laptopa. Zadanie osób przy wskazówkach jest przekazanie informacji
-                jak rozwiązać moduł do osoby przy laptopie. Wskazówek, ani laptopa nie można ruszać z miejsca!
+                jak rozwiązać moduł, do osoby przy laptopie. Wskazówek, ani laptopa nie można ruszać z miejsca!
                 Problem trzeba rozwiązać poprzez komunikację w drużynie. Czas na rozwiązanie wszystkich modułów - 5 min.
                 <div>
                     <button id="bomb-start" class="btn btn-danger">Start</button>
@@ -85,7 +88,7 @@
                 </div>
                 <div class="col-lg-12">&nbsp;</div>
                 <div class="col-lg-3 module" id="mod1">
-                    <h3>Moduł 1 | Symbole</h3>
+                    <h3>Moduł A | Symbole</h3>
                     <div>Kliknij w przyciski z symbolami w odpowiedniej kolejności.</div>
                     <div class="form-group">
                         <div class="row">
@@ -97,7 +100,7 @@
                     </div>
                 </div>
                 <div class="col-lg-3 module" id="mod2">
-                    <h3>Moduł 2 | Kable</h3>
+                    <h3>Moduł B | Kable</h3>
                     <div>Przetnij odpowiedni kabel.</div>
                     <div class="form-group">
                         <div class="row" id="cableContainer">
@@ -106,15 +109,15 @@
                     </div>
                 </div>
                 <div class="col-lg-3 module" id="mod3">
-                    <h3>Moduł 3 | Przycisk</h3>
+                    <h3>Moduł C | Przycisk</h3>
                     <div class="form-group">
-                        <a href="#" id="pressThis" class="press-this">
+                        <a id="pressThis" class="press-this">
                             <div class="press-img"></div>
                         </a>
                     </div>
                 </div>
                 <div class="col-lg-3 module" id="mod4">
-                    <h3>Moduł 4 | Pamięć</h3>
+                    <h3>Moduł D | Pamięć</h3>
                     <div class="form-group col-lg-9">
                         <div class="memory-display text-center"></div>
                         <div class="memory-buttons text-center">

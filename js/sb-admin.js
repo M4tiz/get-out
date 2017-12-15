@@ -46,31 +46,32 @@
   var sols = {
     file: {
       valid: '283',
-      number: 0
+      number: 4
     },
     cipher: {
       valid: 'santaclaus',
-      number: 0
+      number: 6
     },
     uvcode: {
-      valid: 'p_#q3x',
-      number: 0
+      valid: 'chojinka',
+      number: 1
     },
     morse: {
       valid: 'elf',
-      number: 0
+      number: 8
     },
     mirror: {
       valid: 'gift',
       number: 0
     },
     bomb: {
-      number: 0
+      number: 2
     }
   };
 
 
-  $('input.form-control').on('input', function () {
+  $('input.form-control').on('input', function (e) {
+    e.preventDefault();
     var id = $(this).attr('id');
     var solution = sols[id];
     if (solution.valid == $(this).val().toLowerCase()) {
@@ -118,11 +119,13 @@
     failed = false;
 
     //1
+    var $button = $('button.symbol');
     symbols = _.sampleSize(order, 4);
-    $('button.symbol').each(function (index) {
+    $button.each(function (index) {
       $(this).text(symbols[index])
     });
     symbols.sort();
+    $button.click(symbolEvent);
 
     //2
     cable = _.sample(cables);
@@ -167,7 +170,7 @@
   //Modules
   var order = ["©", "¶", "æ", "Ψ", "Ϙ", "Ϟ", "Ͽ", "Ѭ", "Ԇ", "★", "☆"];
 
-  $('button.symbol').click(function (e) {
+  var symbolEvent = function (e) {
     e.preventDefault();
     var sym = $(this).text();
     if (symbols[0] != sym) {
@@ -177,14 +180,13 @@
       symbols = symbols.slice(1);
       console.log('Remaining: ', symbols);
       $(this).addClass('btn-primary btn-disabled');
-      $(this).off('click');
     }
+    $(this).off('click');
 
     if (symbols.length == 0) {
       markAsDone('mod1');
     }
-  });
-
+  };
 
   var cables = [
     {wires: ['green', 'black', 'black'], correct: 1},
@@ -315,6 +317,10 @@
 
   function reset() {
     $('#bomb-start').show();
+    $('.memory-status').text('');
+    var symbols = $('button.symbol');
+    symbols.click(symbolEvent);
+    symbols.removeClass('btn-primary btn-disabled');
     $('.module').css('background-color', 'transparent');
     $('#cableContainer').html('&nbsp;');
     symbols.length = 0;
@@ -350,7 +356,7 @@
   function boom() {
     hideModules();
     setTimeout(function () {
-      alert('Boom. Mikołaja wyjebało. Spróbuj jeszcze raz.');
+      alert('Hahaha hehehehe. Bomba wybuchła, Mikołaj przez was zginął. Przez was dzieci nie będą miały prezentów. Krew jest teraz na waszych rękach. Spróbujcie jeszcze raz.');
     }, 1);
   }
 

@@ -64,6 +64,9 @@ body.fixed-nav {
   padding: 5px;
   margin-bottom: 10px; }
 
+.symbol {
+  font-family: arial, serif; }
+
 .smaller {
   font-size: 0.7rem; }
 
