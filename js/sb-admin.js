@@ -106,10 +106,11 @@
   $('#bomb-start').click(function () {
     $('#modules').show();
     var timelimit = 1000 * 60 * 5;
-    timer(Date.now() + timelimit, $('#timer'));
+    stop = timer(Date.now() + timelimit, $('#timer'));
     randomSolutionSet();
     $(this).hide();
   });
+  var stop = $.noop;
   var failed = false;
   var symbols = [];
   var button = '';
@@ -296,10 +297,15 @@
 
       if (allModulesDone()) {
         hideModules();
+        stopTimer();
         showSolution($('#bomb'), sols.bomb);
         delayedAlert('Bomba rozbrojona.')
       }
     }
+  }
+
+  function stopTimer() {
+    stop();
   }
 
   function allModulesDone() {
@@ -314,6 +320,7 @@
   function fail() {
     reset();
     boom();
+    stopTimer();
     failed = true;
   }
 
@@ -330,12 +337,17 @@
   }
 
   function timer(timelimit, element) {
+    var running = true;
     countdown.setLabels(
         '&nbsp;|:|:',
         '&nbsp;|:|:',
         '', '', '');
 
     function update() {
+      if (!running) {
+        return;
+      }
+
       var units = countdown.MINUTES | countdown.SECONDS | countdown.MILLISECONDS,
           max = 3,
           digits = 3;
@@ -353,6 +365,10 @@
     }
 
     update();
+
+    return function stop() {
+      running = false;
+    }
   }
 
   function boom() {
