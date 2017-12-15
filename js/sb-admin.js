@@ -125,6 +125,7 @@
       $(this).text(symbols[index])
     });
     symbols.sort();
+    $button.off();
     $button.click(symbolEvent);
 
     //2
@@ -227,7 +228,7 @@
     {
       text: 'Hold',
       click: function () {
-        setTimeout(validateTimerDigit.bind(this, 0), 600);
+        setTimeout(validateTimerDigit.bind(this, 0), 300);
       },
       dblclick: fail,
       mousedown: function () {
@@ -296,6 +297,7 @@
       if (allModulesDone()) {
         hideModules();
         showSolution($('#bomb'), sols.bomb);
+        delayedAlert('Bomba rozbrojona.')
       }
     }
   }
@@ -304,7 +306,7 @@
     var done = true;
     $('.module')
         .each(function () {
-          done &= $(this).attr('data-done');
+          done &= ($(this).attr('data-done') === 'true');
         });
     return done;
   }
@@ -355,8 +357,12 @@
 
   function boom() {
     hideModules();
+    delayedAlert('Hahaha hehehehe. Bomba wybuchła, Mikołaj przez was zginął. Przez was dzieci nie będą miały prezentów. Krew jest teraz na waszych rękach. Spróbujcie jeszcze raz.');
+  }
+
+  function delayedAlert(text) {
     setTimeout(function () {
-      alert('Hahaha hehehehe. Bomba wybuchła, Mikołaj przez was zginął. Przez was dzieci nie będą miały prezentów. Krew jest teraz na waszych rękach. Spróbujcie jeszcze raz.');
+      alert(text);
     }, 1);
   }
 
